@@ -1,0 +1,26 @@
+[package]
+name = "neutron-testbench"
+version = "0.1.0"
+authors = ["Jordan Earls <earlz@earlz.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "neutron_testbench"
+path = "src/lib.rs"
+
+[[bin]]
+name = "neutron_testbench_bin"
+path = "src/main.rs"
+
+[dependencies]
+qx86 = { git = "https://github.com/qtumproject/qx86-rs" }
+neutron-qx86-hypervisor = { path = "../neutron-qx86-hypervisor" }
+#neutron-qx86-hypervisor = {git = "https://github.com/qtumproject/neutron-qx86-hypervisor"}
+ring = "0.16.9"
+rocksdb = "0.12.3"
+serde = "1.0.100"
+rmp-serde = "0.14.0"
+serde_derive = "1.0.100"
+elf = "0.0.10"
