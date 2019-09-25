@@ -15,7 +15,7 @@ name = "neutron_testbench_bin"
 path = "src/main.rs"
 
 [dependencies]
-qx86 = { git = "https://github.com/qtumproject/qx86-rs" }
+qx86 = { git = "https://github.com/qtumproject/qx86-rs", branch = "earlz/cc-pipeline"}
 neutron-qx86-hypervisor = { path = "../neutron-qx86-hypervisor" }
 #neutron-qx86-hypervisor = {git = "https://github.com/qtumproject/neutron-qx86-hypervisor"}
 ring = "0.16.9"

@@ -54,7 +54,11 @@ impl NeutronAPI for TestbenchAPI{
     }
 }
 impl NeutronHypervisor for TestbenchAPI{}
-impl Hypervisor for TestbenchAPI{}
+impl Hypervisor for TestbenchAPI{
+    fn interrupt(&mut self, vm: &mut VM, num: u8) -> Result<(), VMError>{
+        (self as &mut dyn NeutronHypervisor).interrupt(vm, num)
+    }
+}
 
 #[cfg(test)]
 mod tests {
