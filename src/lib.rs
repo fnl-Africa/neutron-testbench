@@ -3,6 +3,8 @@ use neutron_qx86_hypervisor::*;
 use neutron_qx86_hypervisor::hypervisor::*;
 use qx86::vm::*;
 use neutronstar_constants::*;
+use num_derive::FromPrimitive;    
+use num_traits::FromPrimitive;
 
 #[derive(Clone, Debug, Default)]
 pub struct TestbenchAPI{
@@ -61,16 +63,46 @@ impl NeutronAPI for TestbenchAPI{
 impl NeutronHypervisor for TestbenchAPI{}
 impl Hypervisor for TestbenchAPI{
     fn interrupt(&mut self, vm: &mut VM, num: u8) -> Result<(), VMError>{
+        use TestbenchSyscalls::*;
         if num == NEUTRON_INTERRUPT || num == EXIT_INTERRUPT{
-            (self as &mut dyn NeutronHypervisor).interrupt(vm, num)
-        } else if num == TESTBENCH_INTERRUPT{
-            unimplemented!()
-        }else{
-            self.log_error("Invalid interrupt triggered");
-            Ok(())
+            return (self as &mut dyn NeutronHypervisor).interrupt(vm, num);
         }
+
+        if num != TESTBENCH_INTERRUPT{
+            self.log_error("Invalid interrupt triggered");
+            return Ok(());
+        }
+        let syscall:TestbenchSyscalls =  FromPrimitive::from_u32(vm.reg32(Reg32::EAX)).unwrap_or(TestbenchSyscalls::Invalid);
+        match syscall{
+            LogError => {
+                //(char *msg, uint32 msg_size) -> void
+                let size = vm.reg32(Reg32::ECX);
+                let msg = String::from_utf8_lossy(vm.copy_from_memory(vm.reg32(Reg32::EBX), size)?).to_owned();
+                self.log_error(&msg);
+            },
+            LogInfo => {
+                //(char *msg, uint32 msg_size) -> void
+                let size = vm.reg32(Reg32::ECX);
+                let msg = String::from_utf8_lossy(vm.copy_from_memory(vm.reg32(Reg32::EBX), size)?).to_owned();
+                self.log_info(&msg);;
+            },
+            LogDebug => {
+                //(char *msg, uint32 msg_size) -> void
+                let size = vm.reg32(Reg32::ECX);
+                let msg = String::from_utf8_lossy(vm.copy_from_memory(vm.reg32(Reg32::EBX), size)?).to_owned();
+                self.log_debug(&msg);
+            },
+            Invalid => {
+                self.log_error("Invalid testbench system call");
+            }
+            _ => unimplemented!()
+        }
+
+        Ok(())
     }
 }
+
+
 
 #[cfg(test)]
 mod tests {

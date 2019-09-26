@@ -20,8 +20,10 @@ neutron-qx86-hypervisor = { path = "../neutron-qx86-hypervisor" }
 #neutron-qx86-hypervisor = {git = "https://github.com/qtumproject/neutron-qx86-hypervisor"}
 neutronstar-constants = { path = "../neutronstar-constants" }
 ring = "0.16.9"
-rocksdb = "0.12.3"
+# rocksdb = "0.12.3"
 serde = "1.0.100"
 rmp-serde = "0.14.0"
 serde_derive = "1.0.100"
 elf = "0.0.10"
+num-traits = "0.2"
+num-derive = "0.2"
