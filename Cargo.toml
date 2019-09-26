@@ -18,6 +18,7 @@ path = "src/main.rs"
 qx86 = { git = "https://github.com/qtumproject/qx86-rs", branch = "earlz/cc-pipeline"}
 neutron-qx86-hypervisor = { path = "../neutron-qx86-hypervisor" }
 #neutron-qx86-hypervisor = {git = "https://github.com/qtumproject/neutron-qx86-hypervisor"}
+neutronstar-constants = { path = "../neutronstar-constants" }
 ring = "0.16.9"
 rocksdb = "0.12.3"
 serde = "1.0.100"

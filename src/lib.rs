@@ -1,6 +1,8 @@
+extern crate neutronstar_constants;
 use neutron_qx86_hypervisor::*;
 use neutron_qx86_hypervisor::hypervisor::*;
 use qx86::vm::*;
+use neutronstar_constants::*;
 
 #[derive(Clone, Debug, Default)]
 pub struct TestbenchAPI{
@@ -53,10 +55,20 @@ impl NeutronAPI for TestbenchAPI{
         println!("DEBUG: {}", msg);
     }
 }
+
+
+
 impl NeutronHypervisor for TestbenchAPI{}
 impl Hypervisor for TestbenchAPI{
     fn interrupt(&mut self, vm: &mut VM, num: u8) -> Result<(), VMError>{
-        (self as &mut dyn NeutronHypervisor).interrupt(vm, num)
+        if num == NEUTRON_INTERRUPT || num == EXIT_INTERRUPT{
+            (self as &mut dyn NeutronHypervisor).interrupt(vm, num)
+        } else if num == TESTBENCH_INTERRUPT{
+            unimplemented!()
+        }else{
+            self.log_error("Invalid interrupt triggered");
+            Ok(())
+        }
     }
 }
 
