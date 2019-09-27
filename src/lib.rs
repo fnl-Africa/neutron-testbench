@@ -1,8 +1,8 @@
-extern crate neutronstar_constants;
+extern crate neutron_star_constants;
 use neutron_qx86_hypervisor::*;
 use neutron_qx86_hypervisor::hypervisor::*;
 use qx86::vm::*;
-use neutronstar_constants::*;
+use neutron_star_constants::*;
 use num_derive::FromPrimitive;    
 use num_traits::FromPrimitive;
 
