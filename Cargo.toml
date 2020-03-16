@@ -15,10 +15,9 @@ name = "neutron_testbench_bin"
 path = "src/main.rs"
 
 [dependencies]
-qx86 = { git = "https://github.com/qtumproject/qx86-rs", branch = "earlz/cc-pipeline"}
-neutron-qx86-hypervisor = { path = "../neutron-qx86-hypervisor" }
-#neutron-qx86-hypervisor = {git = "https://github.com/qtumproject/neutron-qx86-hypervisor"}
-neutron-star-constants = { path = "../neutronstar-constants" }
+qx86 = { git = "https://github.com/qtumproject/qx86-rs", branch = "master"}
+neutron-qx86-hypervisor = { git = "https://github.com/qtumproject/neutron-qx86-hypervisor", branch = "master"}
+neutron-star-constants = { git  = "https://github.com/qtumproject/neutronstar-constants", branch = "master"}
 ring = "0.16.9"
 # rocksdb = "0.12.3"
 serde = "1.0.100"
